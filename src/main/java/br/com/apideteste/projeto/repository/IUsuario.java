@@ -1,4 +1,4 @@
-package br.com.apideteste.projeto.DAO;
+package br.com.apideteste.projeto.repository;
 
 import org.springframework.data.repository.CrudRepository;
 

@@ -15,49 +15,55 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import aj.org.objectweb.asm.Opcodes;
-import br.com.apideteste.projeto.DAO.IUsuario;
 import br.com.apideteste.projeto.model.Usuario;
+import br.com.apideteste.projeto.repository.IUsuario;
+import br.com.apideteste.projeto.service.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/usuarios")
 public class UsuarioController {
-	
-	@Autowired // Classe da interface com as operações de banco de dados
+
+	/*
+	@Autowired // Classe da interface com as operações de banco de dados | Autoinjeção de dependências
 	private IUsuario dao;
+	*/
+
+	// Terceirização dos serviços para maior organização
+	private UsuarioService usuarioService;
+
+	// Construtor passando o usuarioService por parametro para essa classe
+	public UsuarioController (UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
 	
 	@GetMapping
-	public ResponseEntity<List<Usuario>> listar() {
-		
-		//Criando a variavel lista do tipo lista de usuario que contem todos os usuarios do banco de dados
-		List<Usuario> lista = (List<Usuario>) dao.findAll()
-				;
-		// O ResponseEntity irá retornar o status 200 e a variavel lista no body
-		return ResponseEntity.status(200).body(lista);
+	public ResponseEntity<List<Usuario>> listarUsuarios() {
+		// O ResponseEntity irá retornar o status 200 e a lista de todos os usuarios no body
+		return ResponseEntity.status(200).body(usuarioService.listarUsuarios());
 	}
 	
 	@GetMapping ("/{id}")
-	public ResponseEntity<Optional<Usuario>> consultar (@PathVariable Integer id) {
-		Optional<Usuario> usuario = dao.findById(id);
-		return ResponseEntity.status(200).body(usuario);
+	public ResponseEntity<Optional<Usuario>> consultarUsuario (@PathVariable Integer id) {
+		// O ResponseEntity irá retornar o status code 200 e o usuario solicitado no body
+		return ResponseEntity.status(200).body(usuarioService.consultarUsuario(id));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Usuario> incluir (@RequestBody Usuario usuario) {
-		Usuario novoUsuario = dao.save(usuario);
-		return ResponseEntity.status(201).body(novoUsuario);
+	public ResponseEntity<Usuario> criarUsuario (@RequestBody Usuario novoUsuario) {
+		// O ResponseEntity irá retornar o status code 201 e o usuario criado no body
+		return ResponseEntity.status(201).body(usuarioService.criarUsuario(novoUsuario));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Usuario> alterar (@RequestBody Usuario usuario) {
-		Usuario usuarioAlterado = dao.save(usuario);
-		return ResponseEntity.status(201).body(usuarioAlterado);
+	public ResponseEntity<Usuario> alterarUsuario (@RequestBody Usuario usuario) {
+		// O ResponseEntity irá retornar o status code 201 e o usuario alterado no body
+		return ResponseEntity.status(200).body(usuarioService.alterarUsuario(usuario));
 	}
 	
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<?> deletar (@PathVariable Integer id) {
-		dao.deleteById(id);
+		usuarioService.deletarUsuario(id);
 		return ResponseEntity.status(204).build();
 	}
 	
