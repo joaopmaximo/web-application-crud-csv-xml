@@ -9,16 +9,26 @@
     <title>Projeto API</title>
 </head>
 <body>
-    <div class="box">
-        <h1>Cadastro</h1>
-        <form action="">
-            <input type="text" class="nome" name="nome" placeholder="Nome Completo">
-            <input type="text" class="usuario" name="usuario" placeholder="Usuário">
-            <input type="email" class="email" name="email" placeholder="Email">
-            <input type="password" class="senha" name="senha" placeholder="Senha">
-            <input type="tel" class="telefone" name="telefone" placeholder="Telefone">
-            <button id="cadastro">Cadastrar</button>
-        </form>
+    <header>
+        <h1>CRUD</h1>
+    </header>
+    <div class="div-principal">
+        <div class="div-cadastro">
+            <h2>Cadastro</h2>
+            <form action="">
+                <input type="text" class="nome" name="nome" placeholder="Nome Completo">
+                <input type="text" class="usuario" name="usuario" placeholder="Usuário">
+                <input type="email" class="email" name="email" placeholder="Email">
+                <input type="password" class="senha" name="senha" placeholder="Senha">
+                <input type="tel" class="telefone" name="telefone" placeholder="Telefone">
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+        <div class="div-lista">
+            <h2>Lista de usuários</h2>
+            <ul class="lista"></ul>
+            <button type="submit" class="botaoLista">Atualizar lista</button>
+        </div>
     </div>
 </body>
 </html>

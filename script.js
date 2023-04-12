@@ -4,6 +4,9 @@ const Iusuario = document.querySelector(".usuario");
 const Iemail = document.querySelector(".email");
 const Isenha = document.querySelector(".senha");
 const Itelefone = document.querySelector(".telefone");
+const lista = document.querySelector(".lista");
+const botaoLista = document.querySelector(".botaoLista");
+
 
 function cadastrar() {
     // Fetch é um método para fazer requisições HTTP
@@ -26,6 +29,21 @@ function cadastrar() {
         .catch(res => console.log(res))
 }
 
+function listar() {
+    fetch("http://localhost:8080/usuarios")
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(usuario => {
+        const itemLista = document.createElement("li"); // itemList é uma tag "li"
+        itemLista.innerText = `${usuario.id} ${usuario.nome_completo}`; // innertext coloca texto dentro da tag selecionada
+        lista.appendChild(itemLista); // O appendchild coloca "itemList" dentro da tag da classe lista, que no caso é uma "ul"
+        });
+    })
+    .catch(error => console.error(error));
+}
+
+
+// função para limpar os campos do formulário
 function limpar() {
     Inome.value = "",
     Iusuario.value = "",
@@ -34,9 +52,18 @@ function limpar() {
     Itelefone.value = ""
 };
 
+listar();
+
+// Botão de cadastro
 formulario.addEventListener ('submit', function(event) {
     event.preventDefault();
 
     cadastrar();
-    limpar();
+    limpar(); // limpando os campos do formulário após cadastrar
+});
+
+// Botão de atualizar lista
+botaoLista.addEventListener ('click', function() {
+    lista.innerHTML = ""; // esvaziando a lista
+    listar(); // adicionando a lista atualizada
 });

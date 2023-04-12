@@ -8,17 +8,49 @@ body {
     background-color: #313944;
 }
 
+header {
+    padding: 30px 0 20px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 100px;
+}
+
 h1 {
+    color: #F0793F;
+    font-size: 50px;
+    font-weight: 900;
+}
+
+.div-principal {
+    display: flex;
+    justify-content: center;
+}
+
+.div-lista {
+    width: 30%;
+    margin-left: 40px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    font-family: 'Courier New', Courier, monospace;
+    color: #8996a7;
+    margin-bottom: 20px;
+    font-size: 20px
+}
+
+h2 {
     color: white;
     margin-bottom: 20px;
     font-weight: 400;
 }
 
-.box {
-    padding-top: 8%;
-    width: 360px;
-    margin: auto;
-    text-align: center;
+.div-cadastro {
+    width: 30%;
+    margin-right: 40px;
 }
 
 input {
@@ -39,9 +71,9 @@ form {
     font-size: 16px;
 }
 
-#cadastro {
+button {
     margin: 0;
-    width: 100%;
+    width: 150px;
     padding: 15px 0;
     border-radius: 5px;
     background-color: #F0793F;
