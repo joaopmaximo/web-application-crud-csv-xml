@@ -4,6 +4,25 @@
     font-family:Arial, Helvetica, sans-serif;
 }
 
+.div-principal {
+    display: flex;
+    justify-content: center;
+}
+
+.div-cadastro {
+    width: 30%;
+    margin-right: 40px;
+}
+
+.div-lista {
+    width: 30%;
+    margin-left: 40px;
+}
+
+.lixeira {
+    margin-left: 10px;
+}
+
 body {
     background-color: #313944;
 }
@@ -21,16 +40,6 @@ h1 {
     font-weight: 900;
 }
 
-.div-principal {
-    display: flex;
-    justify-content: center;
-}
-
-.div-lista {
-    width: 30%;
-    margin-left: 40px;
-}
-
 ul {
     list-style-type: none;
 }
@@ -46,11 +55,6 @@ h2 {
     color: white;
     margin-bottom: 20px;
     font-weight: 400;
-}
-
-.div-cadastro {
-    width: 30%;
-    margin-right: 40px;
 }
 
 input {
