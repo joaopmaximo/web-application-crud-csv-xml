@@ -13,6 +13,8 @@ alter table usuario drop column nome; # Deletar coluna da tabela
 
 truncate table usuario;
 
+ALTER TABLE usuario AUTO_INCREMENT = 4; # Alterar auto_increment
+
 insert into usuario values (null, 'fulano', 'Ufulano', 'funalo@email.com', 'senha123', '11121211');
 
 select * from usuario;
