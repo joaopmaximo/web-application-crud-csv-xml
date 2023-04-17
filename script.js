@@ -36,7 +36,7 @@ function listar() {
     .then(data => {
         data.forEach(usuario => {
             const itemLista = document.createElement("li"); // Criando uma tag "li"
-            itemLista.innerText = `${usuario.id} ${usuario.nome_completo}`; // innertext coloca texto dentro da tag selecionada
+            itemLista.innerText = `${usuario.id} ${usuario.nome}`; // innertext coloca texto dentro da tag selecionada
             lista.appendChild(itemLista); // O appendchild coloca "itemList" dentro da tag da classe lista, que no caso é uma "ul"
             const iconeLixeira = document.createElement("span"); // Criando a tag "span" que será o icone da lixeira
             iconeLixeira.className = "lixeira";
