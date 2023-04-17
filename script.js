@@ -17,8 +17,7 @@ function cadastrar() {
             }, // Definindo o cabeçalho da requisição, para maior controle ao se comunicar com a aplicação
             method: "POST", // Definindo o método da requisição (verbo) para POST, insinuando que queremos enviar os dados do body
             body: JSON.stringify ({
-                nome_completo: Inome.value,
-                username: Iusuario.value,
+                nome: Inome.value,
                 email: Iemail.value,
                 senha: Isenha.value,
                 telefone: Itelefone.value

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 // import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,8 @@ import br.com.apideteste.projeto.service.UsuarioService;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/usuarios")
+
+// O pacote "controller" serve para fazer a comunicação da aplicação com o exterior (end-point), tendo (normalmente) uma classe para cada entidade.
 public class UsuarioController {
 
 	/*
@@ -32,7 +35,7 @@ public class UsuarioController {
 	// Terceirização dos serviços para maior organização
 	private UsuarioService usuarioService;
 
-	// Construtor passando o usuarioService por parametro para essa classe
+	// Construtor passando o usuarioService por parametro para essa classe | injeção de dependência por construtor
 	public UsuarioController (UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
 	}
@@ -65,6 +68,15 @@ public class UsuarioController {
 	public ResponseEntity<?> deletar (@PathVariable Integer id) {
 		usuarioService.deletarUsuario(id);
 		return ResponseEntity.status(204).build();
+	}
+
+	@PostMapping ("/login")
+	public  ResponseEntity<Usuario> validarSenha (@RequestBody Usuario usuario) {
+		Boolean valid = usuarioService.validarSenha(usuario);
+		if (!valid) { // Se a validação for recusada, vai retornar status de "não autorizado"
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		return ResponseEntity.status(200).build();
 	}
 	
 }

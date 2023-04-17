@@ -6,7 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+// O pacote "model" se refere às entidades, modelos, todos que se comunicam com o banco de dados, da aplicação
+
+@NoArgsConstructor // Lombok cria construtor sem argumentos (se torna o construtor padrão)
+@AllArgsConstructor // Lombok cria construtor com todos os argumentos
+@Data // Lombok cria os métodos getters, setters, toString para todos os atributos
 @Entity // Entity define essa classe como uma entidade para fazer a interação com o banco de dados
 @Table(name = "usuario") // Table define o nome da tabela. Caso o nome da classe seja igual não é necessário
 public class Usuario {
@@ -15,53 +24,16 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Diz que o campo id é auto incrementado
 	@Column(name = "id") // Define a coluna e suas propriedades
 	private Integer id;
-	
-	@Column(name = "nome_completo", length = 200, nullable = true)
-	private String nome_completo;
-	@Column(name = "username", length = 200, nullable = true)
-	private String username;
-	@Column(name = "email", length = 200, nullable = true)
+
+	// @NotNull // Não permite que o campo seja nulo, porém, se for uma string vazia, permite
+	// @NotEmpty // Obriga que tenha pelo menos 1 caracter, mas ainda pode ter espaços vazios
+	@NotBlank(message = "O nome é obrigatório") // Verifica tanto se for nulo quanto se houver apenas caractéres vazios (recomendado)
+	@Column(name = "nome", length = 200, nullable = false)
+	private String nome;
+	@Column(name = "email", length = 200, nullable = false)
 	private String email;
-	@Column(name = "senha", columnDefinition = "TEXT", nullable = true)
+	@Column(name = "senha", columnDefinition = "TEXT", nullable = false)
 	private String senha;
-	@Column(name = "telefone", length = 15, nullable = true)
+	@Column(name = "telefone", length = 15, nullable = false)
 	private String telefone;
-	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getNome_completo() {
-		return nome_completo;
-	}
-	public void setNome_completo(String nome_completo) {
-		this.nome_completo = nome_completo;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-		
 }

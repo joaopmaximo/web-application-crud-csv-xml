@@ -1,4 +1,4 @@
-use banco_de_usuarios;
+use banco_de_usuarios; # Selecionar banco de dados
 
 create table usuario (
 	id integer auto_increment primary key,
@@ -9,12 +9,14 @@ create table usuario (
     	telefone varchar(15) not null
 );
 
-alter table usuario drop column nome; # Deletar coluna da tabela
+alter table usuario drop column username; # Deletar coluna da tabela
 
-truncate table usuario;
+alter table usuario rename column nome_completo to nome;
+
+truncate table usuario; # Deletar tabela
 
 ALTER TABLE usuario AUTO_INCREMENT = 4; # Alterar auto_increment
 
-insert into usuario values (null, 'fulano', 'Ufulano', 'funalo@email.com', 'senha123', '11121211');
+insert into usuario values (null, 'fulano', 'funalo@email.com', 'senha123', '11121211');
 
-select * from usuario;
+select * from usuario; # Mostrar tabela
