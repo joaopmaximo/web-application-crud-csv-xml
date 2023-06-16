@@ -1,20 +1,16 @@
 package br.com.apideteste.projeto.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 // import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.apideteste.projeto.model.Usuario;
 // import br.com.apideteste.projeto.repository.IUsuario;
@@ -53,30 +49,52 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Usuario> criarUsuario (@RequestBody Usuario novoUsuario) {
+	public ResponseEntity<Usuario> criarUsuario (@Valid @RequestBody Usuario novoUsuario) {
 		// O ResponseEntity irá retornar o status code 201 e o usuario criado no body
 		return ResponseEntity.status(201).body(usuarioService.criarUsuario(novoUsuario));
 	}
-	
-	@PutMapping
-	public ResponseEntity<Usuario> alterarUsuario (@RequestBody Usuario usuario) {
-		// O ResponseEntity irá retornar o status code 201 e o usuario alterado no body
-		return ResponseEntity.status(200).body(usuarioService.alterarUsuario(usuario));
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Usuario> alterarUsuario (@PathVariable Integer id, @RequestBody Map<String, Object> atributos) {
+		Optional<Usuario> usuarioOptional = usuarioService.consultarUsuario(id);
+
+		if (usuarioOptional.isPresent()) {
+			Usuario usuario = usuarioOptional.get();
+
+			// Verifica se cada atributo está presente no Map e atualiza o valor correspondente no usuário
+			if (atributos.containsKey("nome")) {
+				usuario.setNome((String) atributos.get("nome"));
+			}
+			if (atributos.containsKey("email")) {
+				usuario.setEmail((String) atributos.get("email"));
+			}
+			if (atributos.containsKey("senha")) {
+				usuario.setSenha((String) atributos.get("senha"));
+			}
+			if (atributos.containsKey("telefone")) {
+				usuario.setTelefone((String) atributos.get("telefone"));
+			}
+
+			Usuario usuarioAlterado = usuarioService.alterarUsuario(usuario);
+			return ResponseEntity.status(200).body(usuarioAlterado);
+		} else {
+			return ResponseEntity.status(404).build();
+		}
 	}
-	
+
 	@DeleteMapping ("/{id}")
 	public ResponseEntity<?> deletar (@PathVariable Integer id) {
 		usuarioService.deletarUsuario(id);
 		return ResponseEntity.status(204).build();
 	}
 
-	@PostMapping ("/login")
-	public  ResponseEntity<Usuario> validarSenha (@RequestBody Usuario usuario) {
-		Boolean valid = usuarioService.validarSenha(usuario);
-		if (!valid) { // Se a validação for recusada, vai retornar status de "não autorizado"
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		}
-		return ResponseEntity.status(200).build();
+	// Quando ocorrer uma BAD_REQUEST do tipo MethodArgumentNotValidException esse
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
+		Map<String, String> errors = new HashMap<>();
+
+		return errors;
 	}
 	
 }

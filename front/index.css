@@ -1,0 +1,31 @@
+.div-principal {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.div-cadastro {
+    width: 30%;
+    margin-right: 40px;
+}
+
+.div-lista {
+    width: 30%;
+    margin-left: 40px;
+}
+
+.div-lista a {
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: none;
+    color: #8f9aa9;
+    font-size: 20px
+}
+
+.lixeira {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.botaoLista {
+    margin-top: 20px;
+}
