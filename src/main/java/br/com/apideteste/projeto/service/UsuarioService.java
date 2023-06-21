@@ -12,33 +12,29 @@ import br.com.apideteste.projeto.repository.IUsuario;
 @Service
 public class UsuarioService {
 	
-	private IUsuario repository; // Importando o repository com as operações de banco de dados | Injeção de dependência
-	// PasswordEncoder passwordEncoder; // Importando o passwordEncoder | Injeção de dependência
+	private final IUsuario repository; // Importando o repository com as operações de banco de dados | Injeção de dependência
 
 	// Construtor passando o repository por parâmetro para essa classe
 	public UsuarioService (IUsuario repository) {
 		this.repository = repository;
-		//this.passwordEncoder = new BCryptPasswordEncoder(); // Quando chamar essa instancia vai conseguir acessar os métodos de criptografia
 	}
 	
 	public List<Usuario> listarUsuarios() {
-		List<Usuario> lista = (List<Usuario>) repository.findAll();
-		return lista;
+		return (List<Usuario>) repository.findAll();
 	}
 	
 	public Optional<Usuario> consultarUsuario (Integer id) {
-		Optional<Usuario> usuario = repository.findById(id);
-		return usuario;
+		return repository.findById(id);
 	}
 	
 	public Usuario criarUsuario (Usuario usuario) {
-		Usuario novoUsuario = repository.save(usuario); // Acresenta o usuário ao banco
-		return novoUsuario; // Retorna o novo usuario
+		repository.save(usuario);
+		return usuario;
 	}
 	
 	public Usuario alterarUsuario (Usuario usuario) {
-		Usuario usuarioAlterado = repository.save(usuario);
-		return usuarioAlterado;
+		repository.save(usuario);
+		return usuario;
 	}
 
 	public Boolean deletarUsuario (Integer id) {

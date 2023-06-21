@@ -5,11 +5,16 @@
 }
 
 .div-cadastro {
-    width: 30%;
+    width: 20%;
     margin-right: 40px;
 }
 
 .div-lista {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    justify-content: space-between;
     width: 30%;
     margin-left: 40px;
 }

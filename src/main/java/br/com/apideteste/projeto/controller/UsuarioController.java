@@ -1,39 +1,35 @@
 package br.com.apideteste.projeto.controller;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-// import org.springframework.beans.factory.annotation.Autowired;
+import br.com.apideteste.projeto.service.DownloadService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.apideteste.projeto.model.Usuario;
-// import br.com.apideteste.projeto.repository.IUsuario;
 import br.com.apideteste.projeto.service.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/usuarios")
+@RequestMapping(value = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
 
 // O pacote "controller" serve para fazer a comunicação da aplicação com o exterior (end-point), tendo (normalmente) uma classe para cada entidade.
 public class UsuarioController {
 
-	/*
-	@Autowired // Classe da interface com as operações de banco de dados | Autoinjeção de dependências
-	private IUsuario dao;
-	*/
-
 	// Terceirização dos serviços para maior organização
-	private UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
+	private final DownloadService downloadService;
 
 	// Construtor passando o usuarioService por parametro para essa classe | injeção de dependência por construtor
-	public UsuarioController (UsuarioService usuarioService) {
+	public UsuarioController(UsuarioService usuarioService, DownloadService downloadService) {
 		this.usuarioService = usuarioService;
+		this.downloadService = downloadService;
 	}
 	
 	@GetMapping
@@ -42,10 +38,16 @@ public class UsuarioController {
 		return ResponseEntity.status(200).body(usuarioService.listarUsuarios());
 	}
 	
-	@GetMapping ("/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Usuario>> consultarUsuario (@PathVariable Integer id) {
-		// O ResponseEntity irá retornar o status code 200 e o usuario solicitado no body
-		return ResponseEntity.status(200).body(usuarioService.consultarUsuario(id));
+		Optional<Usuario> usuarioOptional = usuarioService.consultarUsuario(id);
+
+		if (usuarioOptional.isPresent()) {
+			// O ResponseEntity irá retornar o status code 200 e o usuario solicitado no body
+			return ResponseEntity.status(200).body(usuarioService.consultarUsuario(id));
+		}
+
+		return ResponseEntity.status(404).build();
 	}
 	
 	@PostMapping
@@ -77,24 +79,37 @@ public class UsuarioController {
 
 			Usuario usuarioAlterado = usuarioService.alterarUsuario(usuario);
 			return ResponseEntity.status(200).body(usuarioAlterado);
-		} else {
-			return ResponseEntity.status(404).build();
 		}
+
+		return ResponseEntity.status(404).build();
 	}
 
-	@DeleteMapping ("/{id}")
-	public ResponseEntity<?> deletar (@PathVariable Integer id) {
-		usuarioService.deletarUsuario(id);
-		return ResponseEntity.status(204).build();
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deletarUsuario (@PathVariable Integer id) {
+		Optional<Usuario> usuarioOptional = usuarioService.consultarUsuario(id);
+
+		if (usuarioOptional.isPresent()) {
+			usuarioService.deletarUsuario(id);
+			return ResponseEntity.status(204).build();
+		}
+
+		return ResponseEntity.status(404).build();
 	}
 
-	// Quando ocorrer uma BAD_REQUEST do tipo MethodArgumentNotValidException esse
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
-		Map<String, String> errors = new HashMap<>();
-
-		return errors;
+	@GetMapping("/csv")
+	public void exportarCsv(HttpServletResponse servletResponse) throws IOException {
+		// Configurar o cabeçalho de resposta
+		servletResponse.setContentType("text/csv");
+		servletResponse.addHeader("Content-Disposition","attachment; filename=usuarios.csv");
+		downloadService.exportarCsv(servletResponse.getWriter());
 	}
-	
+
+	@GetMapping("/xml")
+	public void downloadXml(HttpServletResponse servletResponse) throws IOException {
+		// Configurar o cabeçalho de resposta
+		servletResponse.setContentType("text/xml");
+		servletResponse.addHeader("Content-Disposition", "attachment; filename=usuarios.xml");
+		downloadService.exportarXml(servletResponse.getWriter());
+	}
+
 }
