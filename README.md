@@ -1,5 +1,5 @@
 # Aplicação Web CRUD com Exportação CSV e XML
-* API Resful utilizando Java Spring
+* API Resful utilizando Java Spring com Maven
 * Banco de dados MySQL
 * JavaScript no Front-end
 
