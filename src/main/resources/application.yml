@@ -1,0 +1,19 @@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: web-application-crud-csv-xml
+    description: Aplicacao Web com operações CRUD e exportacao CSV e XML
+    author: Joao Pedro Maximo
+    version: '@project.version@'
+spring:
+  profiles:
+    active: dev
