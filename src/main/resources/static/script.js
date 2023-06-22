@@ -14,7 +14,7 @@ const descricao = document.querySelector('#descricao');
 function cadastrar() {
     // Fetch é um método para fazer requisições HTTP
     return new Promise ((resolve, reject) => {
-        fetch('http://localhost:8080/usuarios', {
+        fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ function cadastrar() {
 }
 
 function listar() {
-    fetch('http://localhost:8080/usuarios')
+    fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios')
     .then(response => response.json())
     .then(data => {
         data.forEach(usuario => {
@@ -44,7 +44,7 @@ function listar() {
             iconeLixeira.className = 'lixeira';
             iconeLixeira.id = `${usuario.id}`; // Preenche o atributo id com o id do banco de dados para cada icone da lista
             const imgLixeira = document.createElement('img');
-            imgLixeira.src = './images/trash.png';
+            imgLixeira.src = "./images/trash.png";
             imgLixeira.alt = 'lixeira';
             iconeLixeira.appendChild(imgLixeira); // Colocando a imagem dentro do span
             itemLista.appendChild(iconeLixeira); // Colocando o icone da lixeira em cada item
@@ -68,7 +68,7 @@ function listar() {
 
 function deletar(id) {
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8080/usuarios/${id}`, {method: 'DELETE'})
+        fetch(`https://web-application-crud-csv-xml-production.up.railway.app/usuarios/${id}`, {method: 'DELETE'})
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
@@ -85,7 +85,7 @@ function limpar() {
 }
 
 function baixarCsv() {
-    fetch('http://localhost:8080/usuarios/csv')
+    fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios/csv')
     .then(response => response.blob())
     .then(blob => {
         // Cria um URL temporário para o objeto Blob
@@ -104,22 +104,22 @@ function baixarCsv() {
 }
 
 function baixarXml() {
-    fetch('http://localhost:8080/usuarios/xml')
+    fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios/xml')
     .then(response => response.blob())
     .then(blob => {
         // Cria um URL temporário para o objeto Blob
-        const url = URL.createObjectURL(blob);
+        const url = URL.createObjectURL(blob)
 
         // Cria um link de download programaticamente
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'usuarios.xml'; // Define o nome do arquivo
-        link.click();
+        const link = document.createElement('a')
+        link.href = url
+        link.download = 'usuarios.xml' // Define o nome do arquivo
+        link.click()
 
         // Limpa o URL temporário
         URL.revokeObjectURL(url);
     })
-    .catch(error => console.error(error));
+    .catch(error => console.error(error))
 }
 
 // Botão de cadastro
@@ -146,7 +146,7 @@ botaoCsv.addEventListener('click', () => {
 })
 
 botaoXml.addEventListener('click', () => {
-    baixarXml();
+    baixarXml()
 })
 
 listar()

@@ -17,3 +17,7 @@ info:
 spring:
   profiles:
     active: dev
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/static/
