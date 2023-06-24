@@ -105,7 +105,7 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/xml")
-	public void downloadXml(HttpServletResponse servletResponse) throws IOException {
+	public void exportaXml(HttpServletResponse servletResponse) throws IOException {
 		// Configurar o cabeçalho de resposta
 		servletResponse.setContentType("text/xml");
 		servletResponse.addHeader("Content-Disposition", "attachment; filename=usuarios.xml");
