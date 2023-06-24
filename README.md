@@ -4,6 +4,7 @@
 * JavaScript no Front-end
 
 Aplicação web que possibilita o usuário a realizar as operações de CRUD, exportar CSV e/ou XML em uma página sincronizada com o banco de dados através da API.
+Link do projeto: https://web-application-crud-csv-xml-production.up.railway.app/
 
 ## Programas utilizados
 * Intellij/Eclipse/Visual Studio Code
