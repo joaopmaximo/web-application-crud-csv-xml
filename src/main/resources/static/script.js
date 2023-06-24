@@ -6,8 +6,6 @@ const Itelefone = document.querySelector('.telefone');
 const lista = document.querySelector('.lista');
 const divLista = document.querySelector('.div-lista');
 const botaoLista = document.querySelector('.botaoLista');
-const botaoCsv = document.querySelector('.botaoCsv');
-const botaoXml = document.querySelector('.botaoXml');
 const fallback = document.querySelector('#fallback');
 const descricao = document.querySelector('#descricao');
 
@@ -84,44 +82,6 @@ function limpar() {
     fallback.textContent = '';
 }
 
-function baixarCsv() {
-    fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios/csv')
-    .then(response => response.blob())
-    .then(blob => {
-        // Cria um URL temporário para o objeto Blob
-        const url = URL.createObjectURL(blob);
-
-        // Cria um link de download programaticamente
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'usuarios.csv'; // Define o nome do arquivo
-        link.click();
-
-        // Limpa o URL temporário
-        URL.revokeObjectURL(url);
-    })
-    .catch(error => console.error(error));
-}
-
-function baixarXml() {
-    fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios/xml')
-    .then(response => response.blob())
-    .then(blob => {
-        // Cria um URL temporário para o objeto Blob
-        const url = URL.createObjectURL(blob)
-
-        // Cria um link de download programaticamente
-        const link = document.createElement('a')
-        link.href = url
-        link.download = 'usuarios.xml' // Define o nome do arquivo
-        link.click()
-
-        // Limpa o URL temporário
-        URL.revokeObjectURL(url);
-    })
-    .catch(error => console.error(error))
-}
-
 // Botão de cadastro
 formulario.addEventListener('submit', async event => {
     event.preventDefault()
@@ -139,14 +99,6 @@ formulario.addEventListener('submit', async event => {
 botaoLista.addEventListener('click', () => {
     limpar() // removendo a lista anterior
     listar() // adicionando a lista atualizada
-})
-
-botaoCsv.addEventListener('click', () => {
-    baixarCsv()
-})
-
-botaoXml.addEventListener('click', () => {
-    baixarXml()
 })
 
 listar()
