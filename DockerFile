@@ -7,7 +7,7 @@ ENV MYSQL_ROOT_PASSWORD=root
 ENV MYSQL_DATABASE=banco_de_usuarios
 ENV MYSQL_PASSWORD=password
 ENV MYSQL_USER=myuser
-COPY ./script.sql /docker-entrypoint-initdb.b/
+COPY ./script.sql /docker-entrypoint-initdb.d/
 
 FROM bellsoft/liberica-openjdk-alpine:17
 COPY --from=build /target/demo-0.0.1-SNAPSHOT.jar demo.jar
