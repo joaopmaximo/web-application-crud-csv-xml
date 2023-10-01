@@ -15,7 +15,7 @@ info:
     version: '1'
 spring:
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: dev
   mvc:
     static-path-pattern: /**
   resources:
