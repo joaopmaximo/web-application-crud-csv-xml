@@ -8,9 +8,10 @@ const formulario = document.querySelector('form');
 const descricao = document.querySelector('#descricao');
 const alterarSenha = document.querySelector('#alterarSenha');
 alterarSenha.href = `./alterarSenha.html?id=${id}`;
+const urlApi = "https://web-application-crud-csv-xml.onrender.com/usuarios";
 
 function listar() {
-    fetch(`http://localhost:8080/${id}`)
+    fetch(`${urlApi}/${id}`)
     .then(response => response.json())
     .then (usuario => {
         nome.value = `${usuario.nome}`;
@@ -23,7 +24,7 @@ function listar() {
 
 function atualizar() {
     return new Promise ((resolve, reject) => {
-        fetch(`http://localhost:8080/${id}`, {
+        fetch(`${urlApi}/${id}`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -8,10 +8,11 @@ const formulario = document.querySelector('form');
 const back = document.querySelector('#back');
 back.href = `./usuario.html?id=${id}`;
 const descricao = document.querySelector('#descricao');
+const urlApi = "https://web-application-crud-csv-xml.onrender.com/usuarios";
 
 function getSenhaAntiga() {
     return new Promise ((resolve, reject) => {
-        fetch(`http://localhost:8080/${id}`)
+        fetch(`${urlApi}/${id}`)
         .then(response => response.json())
         .then (usuario => {
             senhaBanco = `${usuario.senha}`;
@@ -22,7 +23,7 @@ function getSenhaAntiga() {
 }
 
 function atualizar() {
-    fetch(`http://localhost:8080/${id}`, {
+    fetch(`${urlApi}/${id}`, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"

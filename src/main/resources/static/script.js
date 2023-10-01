@@ -8,11 +8,12 @@ const divLista = document.querySelector('.div-lista');
 const botaoLista = document.querySelector('.botaoLista');
 const fallback = document.querySelector('#fallback');
 const descricao = document.querySelector('#descricao');
+const urlApi = "https://web-application-crud-csv-xml.onrender.com/usuarios";
 
 function cadastrar() {
     // Fetch é um método para fazer requisições HTTP
     return new Promise ((resolve, reject) => {
-        fetch("http://localhost:8080/usuarios", {
+        fetch(urlApi, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -31,7 +32,7 @@ function cadastrar() {
 }
 
 function listar() {
-    fetch("http://localhost:8080/usuarios")
+    fetch(urlApi)
     .then(response => response.json())
     .then(data => {
         data.forEach(usuario => {
@@ -66,7 +67,7 @@ function listar() {
 
 function deletar(id) {
     return new Promise((resolve, reject) => {
-        fetch(`http://localhost:8080/${id}`, {method: 'DELETE'})
+        fetch(`${urlApi}/${id}`, {method: 'DELETE'})
         .then(response => resolve(response))
         .catch(error => reject(error))
     })
