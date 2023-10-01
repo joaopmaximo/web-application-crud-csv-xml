@@ -12,7 +12,7 @@ const descricao = document.querySelector('#descricao');
 function cadastrar() {
     // Fetch é um método para fazer requisições HTTP
     return new Promise ((resolve, reject) => {
-        fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios', {
+        fetch("http://localhost:8080/usuarios", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ function cadastrar() {
 }
 
 function listar() {
-    fetch('https://web-application-crud-csv-xml-production.up.railway.app/usuarios')
+    fetch("http://localhost:8080/usuarios")
     .then(response => response.json())
     .then(data => {
         data.forEach(usuario => {
@@ -66,7 +66,7 @@ function listar() {
 
 function deletar(id) {
     return new Promise((resolve, reject) => {
-        fetch(`https://web-application-crud-csv-xml-production.up.railway.app/usuarios/${id}`, {method: 'DELETE'})
+        fetch(`http://localhost:8080/${id}`, {method: 'DELETE'})
         .then(response => resolve(response))
         .catch(error => reject(error))
     })

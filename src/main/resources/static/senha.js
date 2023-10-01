@@ -11,7 +11,7 @@ const descricao = document.querySelector('#descricao');
 
 function getSenhaAntiga() {
     return new Promise ((resolve, reject) => {
-        fetch(`https://web-application-crud-csv-xml-production.up.railway.app/usuarios/${id}`)
+        fetch(`http://localhost:8080/${id}`)
         .then(response => response.json())
         .then (usuario => {
             senhaBanco = `${usuario.senha}`;
@@ -22,7 +22,7 @@ function getSenhaAntiga() {
 }
 
 function atualizar() {
-    fetch(`https://web-application-crud-csv-xml-production.up.railway.app/usuarios/${id}`, {
+    fetch(`http://localhost:8080/${id}`, {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"

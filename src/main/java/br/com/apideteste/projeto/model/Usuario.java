@@ -12,13 +12,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serial;
 import java.io.Serializable;
 
 // O pacote "model" se refere às entidades, modelos, todos que se comunicam com o banco de dados, da aplicação
 
-@XmlRootElement
 @NoArgsConstructor // Lombok cria construtor sem argumentos (se torna o construtor padrão)
 @AllArgsConstructor // Lombok cria construtor com todos os argumentos
 @Data // Lombok cria os métodos getters, setters, toString para todos os atributos

@@ -44,6 +44,7 @@ public class DownloadService {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Usuarios.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty("com.sun.xml.internal.bind.xmlHeaders", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             marshaller.marshal(usuarios, writer);
         }
         catch (JAXBException e) {
