@@ -5,8 +5,8 @@ WORKDIR /app
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Executar a aplicação usando a imagem do JRE
-FROM openjdk:17-jre-slim
+FROM bellsoft/liberica-openjdk-alpine:17
 WORKDIR /app
-COPY --from=build /app/target/web-application-crud-csv-xml.jar web-application-crud-csv-xml.jar
+COPY --from=build /app/target/projeto-0.0.1-SNAPSHOT projeto-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "web-application-crud-csv-xml.jar"]
+ENTRYPOINT ["java", "-jar", "projeto-0.0.1-SNAPSHOT.jar"]
