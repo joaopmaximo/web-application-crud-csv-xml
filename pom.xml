@@ -11,8 +11,8 @@
 	<groupId>br.com.apideteste</groupId>
 	<artifactId>projeto</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>projeto</name>
-	<description>Projeto API de teste</description>
+	<name>web-application-crud-csv-xml</name>
+	<description>Aplicação WEB CRUD</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
