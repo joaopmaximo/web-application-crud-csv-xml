@@ -8,7 +8,8 @@ const divLista = document.querySelector('.div-lista');
 const botaoLista = document.querySelector('.botaoLista');
 const fallback = document.querySelector('#fallback');
 const descricao = document.querySelector('#descricao');
-const urlApi = "https://web-application-crud-csv-xml.onrender.com/usuarios";
+const port = 222
+const urlApi = `localhost:${port}`;
 
 function cadastrar() {
     // Fetch é um método para fazer requisições HTTP
