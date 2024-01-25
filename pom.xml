@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.apideteste</groupId>
 	<artifactId>projeto</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>web-application-crud-csv-xml</name>
 	<description>Aplicação WEB CRUD</description>
 	<properties>

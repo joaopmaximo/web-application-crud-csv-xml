@@ -1,15 +1,14 @@
 spring:
   datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:${PROD_DB_DRIVER}://${PROD_DB_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
-    username: ${PROD_DB_USERNAME}
-    password: ${PROD_DB_PASSWORD}
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
 
   sql:
     init:
       mode: always
 
   jpa:
-    hibernate.ddl-auto: update
-    generate-ddl: true
-    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true

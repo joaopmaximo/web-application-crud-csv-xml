@@ -8,8 +8,8 @@ const divLista = document.querySelector('.div-lista');
 const botaoLista = document.querySelector('.botaoLista');
 const fallback = document.querySelector('#fallback');
 const descricao = document.querySelector('#descricao');
-const port = 222
-const urlApi = `localhost:${port}`;
+const port = 8080
+const urlApi = `http://localhost:${port}/usuarios`;
 
 function cadastrar() {
     // Fetch é um método para fazer requisições HTTP
